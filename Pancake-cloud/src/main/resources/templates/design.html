@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pancake Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<h1>Design your Pancake!</h1>
+<img th:src="@{/images/pancakes.jpeg}"/>
+
+    <!-- end::all[] -->
+    <form method="POST" th:action="@{/logout}" id="logoutForm">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <form th:method="POST" th:object="${pancake}" th:action="@{/design}" id="pancakeForm">
+
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ingredients')}"
+          th:errors="*{ingredients}">Ingredient Error</span>
+    <form class="grid">
+        <div class="ingredient-group" id="ikra">
+            <h3>Designate your ikra:</h3>
+            <div th:each="ingredient : ${ikra}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"
+                />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+        </div>
+        <div class="ingredient-group" id="sguha">
+            <h3>Pick your sguha:</h3>
+            <div th:each="ingredient : ${sguha}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"
+                />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+        </div>
+        <div class="ingredient-group" id="klubnika">
+            <h3>Choose your klubnika:</h3>
+            <div th:each="ingredient : ${klubnika}">
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"
+                />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            </div>
+        </div>
+        <div>
+            <h3>Name your Pancake creation:</h3>
+            <input type="text" th:field="*{name}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">Name Error</span>
+            <br/>
+            <button>Submit your pancake</button>
+        </div>
+    </form>
+</body>
+</html>
